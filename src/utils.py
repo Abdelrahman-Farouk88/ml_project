@@ -29,13 +29,20 @@ def evaluate_model(x_train, y_train, x_test, y_test, models, param):
 
         for i in range(len(list(models))):
             model = list(models.values())[i]
-            para = param[list(models.keys())[i]]
+            model_name = list(models.keys())[i]
+            para = param[model_name]
 
-            gs = GridSearchCV(model, para, cv=3)
-            gs.fit(x_train, y_train)
+            # Handle CatBoost separately due to sklearn 1.8.0 compatibility
+            if 'CatBoost' in model_name:
+                # Train CatBoost with default params first
+                model.fit(x_train, y_train)
+            else:
+                # Use GridSearchCV for other models
+                gs = GridSearchCV(model, para, cv=3)
+                gs.fit(x_train, y_train)
 
-            model.set_params(**gs.best_params_)
-            model.fit(x_train, y_train)
+                model.set_params(**gs.best_params_)
+                model.fit(x_train, y_train)
 
             y_train_pred = model.predict(x_train)
             y_test_pred = model.predict(x_test)
@@ -43,7 +50,7 @@ def evaluate_model(x_train, y_train, x_test, y_test, models, param):
             train_model_score = r2_score(y_train, y_train_pred)
             test_model_score = r2_score(y_test, y_test_pred)
 
-            report[list(models.keys())[i]] = test_model_score
+            report[model_name] = test_model_score
 
         return report
 

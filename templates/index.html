@@ -1,1 +1,34 @@
-<h1> Welcome to the home page </h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Predict student math exam performance using machine learning">
+    <title>Student Exam Performance Predictor - Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="hero">
+            <h1>Student Exam Performance Predictor</h1>
+            <p>Predict student math exam scores using advanced machine learning models</p>
+            <a href="{{ url_for('predict_datapoint') }}" class="cta-button">Get Started</a>
+        </div>
+        
+        <div class="features">
+            <div class="feature">
+                <h3>🎯 Accurate Predictions</h3>
+                <p>Our machine learning model uses multiple factors to accurately predict student math exam performance</p>
+            </div>
+            <div class="feature">
+                <h3>📊 Data-Driven</h3>
+                <p>Based on comprehensive analysis of student demographics, academic history, and test preparation</p>
+            </div>
+            <div class="feature">
+                <h3>⚡ Fast & Easy</h3>
+                <p>Simple form interface that provides instant predictions with just a few clicks</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
